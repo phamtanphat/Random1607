@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnRandom, btnAddNumber;
     TextView txtKetqua;
     ArrayList<Integer> mangso = new ArrayList<>();
-
+    String hienthi = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +52,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Random random = new Random();
-                int index = random.nextInt(mangso.size());
-                int value = mangso.get(index);
-                txtKetqua.append(value + " - ");
-                mangso.remove(index);
+                if (mangso.size() > 0){
+                    Random random = new Random();
+                    int index = random.nextInt(mangso.size());
+                    int value = mangso.get(index);
+
+                    if (mangso.size() == 1){
+                        hienthi = String.valueOf(value);
+                    }else {
+                        hienthi = value + " - ";
+                    }
+                    txtKetqua.append(hienthi);
+                    mangso.remove(index);
+                }else {
+                    Toast.makeText(MainActivity.this, "Het gia tri de random", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
